@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body data-spy="scroll" data-target=".navbar">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+
+
+        <div class="container">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand ep_nav" href="#">Hub Api</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="#ep_feed" class="ep_nav">Feed</a></li>
+                                <li><a href="#ep_influencer_get" class="ep_nav">Get Influencer</a></li>
+                                <li><a href="#ep_influencer_post" class="ep_nav">Edit Influencer</a></li>
+                                <li><a href="#ep_influencer_delete" class="ep_nav">Delete Influencer</a></li>
+                                <li><a href="#ep_star_get" class="ep_nav">Get Stars</a></li>
+                                <li><a href="#ep_star_post" class="ep_nav">Give Stars</a></li>
+                                <li><a href="#ep_tag_get" class="ep_nav">Get Tags</a></li>
+                                <li><a href="#ep_tag_post" class="ep_nav">Add Tags</a></li>
+                                <li><a href="#ep_search" class="ep_nav">Search</a></li>
+                                <li><a href="#ep_activity" class="ep_nav">User Activity</a></li>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <h1>Endpoints for Hub API</h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <h3>Authentication</h3>
+                    <p>Authentication is via your provided API key. Use the key with an <strong>auth</strong> parameter on the request. All endpoints require authentication.
+                </div>
+            </div>
+            <div class="row" id="ep_feed">
+                <div class="span12">
+                    <h3><button class="btn btn-success">GET</button> /hub/feed/{user_id?}/?params=</h3>
+                    <hr>
+                    <p>Returns the feed. Optionally, specify a user to get just their feed. Returns JSON object. Limited to 500 items per page.</p>
+                    <h4>Parameters</h4>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ch</td>
+                                <td>No</td>
+                                <td>Filter feed by a channel. Possible values are <strong>f</strong> (Facebook), <strong>t</strong> (Twitter), <strong>p</strong> (Pinterest), <strong>b</strong> (blog), <strong>e</strong> (email). Separate multiple channels by commas to combine.</td>
+                            </tr>
+                            <tr>
+                                <td>ts</td>
+                                <td>No</td>
+                                <td>Only return feed items after this timestamp</td>
+                            </tr>
+                            <tr>
+                                <td>sort</td>
+                                <td>Only if using <strong>dir</strong></td>
+                                <td>Can specify <strong>time</strong> or <strong>reach</strong> to sort by these parameters. Will default to time descending if not provided.</td>
+                            </tr>
+                            <tr>
+                                <td>dir</td>
+                                <td>No, but can only be used if <strong>sort</strong> provided</td>
+                                <td>Set to <strong>asc</strong> (ascending) or <strong>des</strong> (descending) to specify direction of the sort parameter.</td>
+                            </tr>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response</h4>
+                    <div class='row'>
+                        <div class="span6">
+                            <p>Sample response</p>
+                            <code>
+                                <pre>
+{
+    "total": "500",
+    "network": "Branderati",
+    "last_page": false,
+    "next_page": "http: //branderati.com/api/hub/limit=500&offset=500&__after_id=100004539155660",
+    "results": [
+        {
+            "post_id": 1011,
+            "influencer_id": "43567542341235",
+            "name": "Jimmy Hickey",
+            "datetime": "2013-06-1912: 00: 00",
+            "profile_image": "https: //fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/371999_4301163_671979689_q.jpg",
+            "post_image": "http: //example.com/abc43562.png",
+            "contact": {
+                "email": "jimmy@branderati.com",
+                "facebook": "jimmy.hickey.35",
+                "twitter": "@jhickeyiv",
+                "blog": "http: //branderati.com/blog/",
+                "pinterest": "jameshickey@me.com"
+            },
+            "type": "twitter",
+            "unique": {
+                "retweet_count": 10,
+                "favorite_count": 5,
+                "hastags": [
+                    "#branderati",
+                    "#hubapi"
+                ]
+            },
+            "content": "Using the Hub api!",
+            "geo": "New York, NY",
+            "reach": 1001,
+            "star": false,
+            "tags": [],
+            "client": "Test Client",
+            "campaign": "Test Campaign",
+            "module": "Test Module",
+            "module_type": "Test type"
+        },
+    ...
+    ]
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                            <p>Response breakdown</p>
+                        <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>total</td>
+                                <td>total number of posts returned</td>
+                            </tr>
+                            <tr>
+                                <td>network</td>
+                                <td>The network being searched</td>
+                            </tr>
+                            <tr>
+                                <td>next_page</td>
+                                <td>Call to next page of results. Will be <strong>false</strong> if there are no more pages left.</td>
+                            </tr>
+                            <tr>
+                                <td>results</td>
+                                <td>An array of objects representing the current feed.</td>
+                            </tr>
+                            <tr>
+                                <td>results.post_id</td>
+                                <td>ID of the post</td>
+                            </tr>
+                            <tr>
+                                <td>results.influencer_id</td>
+                                <td>ID of the specific influencer</td>
+                            </tr>
+                            <tr>
+                                <td>results.name</td>
+                                <td>The influencer’s name</td>
+                            </tr>
+                            <tr>
+                                <td>results.datetime</td>
+                                <td>Time of the posting in YYYY-MM-DD HH:MM</td>
+                            </tr>
+                            <tr>
+                                <td>results.profile_image</td>
+                                <td>The influencer’s profile picture</td>
+                            </tr>
+                            <tr>
+                                <td>results.post_image</td>
+                                <td>The image tied to the particular post.</td>
+                            </tr>
+                            <tr>
+                                <td>results.contact</td>
+                                <td>An array of available contact handles for the influencer.</td>
+                            </tr>
+                            <tr>
+                                <td>results.type</td>
+                                <td>The origin of the post.</td>
+                            </tr>
+                            <tr>
+                                <td>results.unique</td>
+                                <td>An array of any specific data unique to the post type, such as hash tags for a Twitter type post.</td>
+                            </tr>
+                            <tr>
+                                <td>results.content</td>
+                                <td>The text content, if any, of the post</td>
+                            </tr>
+                            <tr>
+                                <td>results.geo</td>
+                                <td>Location of the influencer.</td>
+                            </tr>
+                            <tr>
+                                <td>results.reach</td>
+                                <td>The reach of the post in question</td>
+                            </tr>
+                            <tr>
+                                <td>results.star</td>
+                                <td>Whether or not the post has a star. Boolean value.</td>
+                            </tr>
+                            <tr>
+                                <td>results.tags</td>
+                                <td>An array of the posts tags.</td>
+                            </tr>
+                            <tr>
+                                <td>results.client</td>
+                                <td>The post's associated client.</td>
+                            </tr>
+                            <tr>
+                                <td>results.campaign</td>
+                                <td>The post's associated campaign.</td>
+                            </tr>
+                            <tr>
+                                <td>results.module</td>
+                                <td>The post's associated module.</td>
+                            </tr>
+                            <tr>
+                                <td>results.module_type</td>
+                                <td>The post's associated module type.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="ep_influencer_get">
+                <div class="span12">
+                    <h3><button class="btn btn-success">GET</button> /hub/influencer/{influencer_id}/?params=</h3>
+                    <hr>
+                    <p>Returns data on a specific influencer. Returns JSON object.</p>
+                    <h4>Parameters</h4>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>show</td>
+                                <td>No</td>
+                                <td>Filters data to show only specified information. Possible values are <strong>g</strong> (general),  <strong>s</strong> (screener), <strong>f</strong> (Facebook), <strong>t</strong> (Twitter), <strong>p</strong> (Pinterest). Separate multiple values by commas to combine.</td>
+                            </tr>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response</h4>
+                    <div class='row'>
+                        <div class="span6">
+                            <p>Sample response</p>
+                            <code>
+                                <pre>
+{
+    "influencer_id": "43567542341235",
+    "posts": 400,
+    "klout": 50,
+    "name": "Jimmy Hickey",
+    "profile_image": "https: //fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/371999_4301163_671979689_q.jpg",
+    "contact": {
+        "email": "jimmy@branderati.com",
+        "facebook": "jimmy.hickey.35",
+        "twitter": "@jhickeyiv",
+        "blog": "http: //branderati.com/blog/",
+        "pinterest": "jameshickey@me.com"
+    },
+    "geo": "New York, NY",
+    "reach": 10001,
+    "star": false,
+    "tags": [],
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                            <p>Similar to the user object passed in the <a href="#ep_feed">feed</a>.</p>
+                        </div>
+                    </div>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> <div class="row" id="ep_influencer_post">
+                <div class="span12">
+                    <h3><button class="btn btn-primary">POST</button> /hub/influencer/{influencer_id}/</h3>
+                    <hr>
+                    <p>Updates the given influencers information as per a given JSON object. Only fileds specified in the JSON object will be altered, except the influencer_id, which is required. Returns 200 on success.</p>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Request Example</h4>
+                    <div class='row'>
+                        <div class="span6">
+                            <code>
+                                <pre>
+{
+    "influencer_id": "43567542341235",
+    "contact": {
+        "email": "jh@branderati.com",
+    },
+    "geo": "Brooklyn, NY",
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                            <p>This will update the geo and email of the influencer given by the influencer_id.</p>
+                        </div>
+                    </div>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters or post data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="ep_influencer_delete">
+                <div class="span12">
+                    <h3><button class="btn btn-danger">DELETE</button> /hub/influencer/{influencer_id}</h3>
+                    <hr>
+                    <p>Deletes the given influencer. Returns 200 on success.</p>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response</h4>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td>Server error, user was not deleted.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="ep_star_get">
+                <div class="span12">
+                    <h3><button class="btn btn-success">GET</button> /hub/star/</h3>
+                    <hr>
+                    <p>Gets id of all starred posts in the feed. Limited to 500 at a time.</p>
+                     <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response</h4>
+                    <div class='row'>
+                        <div class="span6">
+                            <p>Sample response</p>
+                            <code>
+                            <pre>
+{
+    "total": 3,
+    "next_page": false,
+    "posts": [
+        123461242465,
+        187564323422,
+        853541341111
+    ]
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                        </div>
+                    </div>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="ep_star_post">
+                <div class="span12">
+                    <h3><button class="btn btn-primary">POST</button> /hub/star/({post_id}|{influencer_id})</h3>
+                    <hr>
+                    <p>Stars the given post or influencer. Returns 200 on success.</p>
+                     <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>200</td>
+                                            <td>Success</td>
+                                        </tr>
+                                        <tr>
+                                            <td>401</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+                                        <tr>
+                                            <td>422</td>
+                                            <td>Bad parameters or post data.</td>
+                                        </tr>
+                                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="ep_tag_get">
+                <div class="span12">
+                    <h3><button class="btn btn-success">GET</button> /hub/tags/({influencer_id?}|{post_id?})/</h3>
+                    <hr>
+                    <p>Gets a list of all tags in use or a list of tags for the given post or user id.</p>
+                     <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response</h4>
+                    <div class='row'>
+                        <div class="span6">
+                            <code>
+                                <pre>
+{
+  "tags": [
+    "cool",
+    "neato",
+    "awesome"
+  ]
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                            <p> An array of all tags</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6">
+                            <code>
+                                <pre>
+{
+  "influencer_id": 546471341,
+  "tags": [
+    "cool",
+    "neato"
+  ]
+}
+                            </pre>
+                            </code>
+                        </div>
+                        <div class="span6">
+                            Tags for a given influencer. Substitute 'influencer_id' with 'post_id' in the request URL to do the same for a given post.
+                        </div>
+                    </div>
+                    <h4>Status codes</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Authentication failed</td>
+                            </tr>
+                            <tr>
+                                <td>422</td>
+                                <td>Bad parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                        <div class="row" id="ep_tag_post">
+                            <div class="span12">
+                                <h3><button class="btn btn-primary">POST</button> /hub/tags/({influencer_id}|{post_id})/</h3>
+                                <hr>
+                                <p>Adds tags given in a JSON object to the given influencer or post. Returns the item's id on success.</p>
+                                 <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Parameter</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>auth</td>
+                                <td>Yes</td>
+                                <td>API key</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                                <h4>Example Request</h4>
+                                <div class='row'>
+                                    <div class="span6">
+                                        <code>
+                                        <pre>
+{
+  "tags": [
+    "cool",
+    "neato"
+  ]
+}
+                                        </pre>
+                                        </code>
+                                    </div>
+                                    <div class="span6">
+                                        <p>Will add the tags 'cool' and 'neato' to the given influencer. Substitute 'influencer_id' with 'post_id' in the request URL to do the same for a given post.</p>
+                                    </div>
+                                </div>
+                                <h4>Status codes</h4>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>200</td>
+                                            <td>Success</td>
+                                        </tr>
+                                        <tr>
+                                            <td>401</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+                                        <tr>
+                                            <td>422</td>
+                                            <td>Bad parameters or post data.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" id="ep_search">
+                            <div class="span12">
+                                <h3><button class="btn btn-success">GET</button> /hub/search/</h3>
+                                <hr>
+                                <p>Gets a list of influencer ids by the given search filters. See parameters below for full list of available criteria. Note that while no specific parameters are required, at least one must be present. Limited to 500 results at a time.</p>
+                                <h4>Parameters</h4>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <th>Parameter</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>keyword</td>
+                                            <td>No</td>
+                                            <td>Posts containing a certain keyword.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ageLess</td>
+                                            <td>No</td>
+                                            <td>Age is less than given value</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ageGreater</td>
+                                            <td>No</td>
+                                            <td>Age is greater than given value</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td>geo</td>
+                                            <td>With <strong>dist</strong> only.</td>
+                                            <td>Influencers from a specific place.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>dist</td>
+                                            <td>No, but requires <strong>geo</strong>.</td>
+                                            <td>Returns influencers within a certain number of miles from <strong>geo</strong>.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>gender</td>
+                                            <td>No</td>
+                                            <td>Influencer's gender.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>auth</td>
+                                            <td>Yes</td>
+                                            <td>API key</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Response</h4>
+                                <p>The response will be identical in format to a <a href="#ep_feed">feed</a> response.
+                                <h4>Status codes</h4>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>200</td>
+                                            <td>Success</td>
+                                        </tr>
+                                        <tr>
+                                            <td>401</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+                                        <tr>
+                                            <td>422</td>
+                                            <td>Bad parameters.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                         <div class="row" id="ep_activity">
+                            <div class="span12">
+                                <h3><button class="btn btn-success">GET</button> /hub/activity/{influencer_id}</h3>
+                                <hr>
+                                <p>Gets an array of post from an influencers recent social media activity. Limited to 500 results per page.</p>
+                                <h4>Parameters</h4>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <th>Parameter</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>auth</td>
+                                            <td>Yes</td>
+                                            <td>API key</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ts</td>
+                                            <td>No</td>
+                                            <td>Only return results from after this timestamp.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h4>Response</h4>
+                                <div class="row">
+                                    <div class="span6">
+                                    <p>Sample response</p>
+                                    <code>
+                                        <pre>
+{
+    "total": "500",
+    "influencer_id": "213456432",
+    "next_page": "http: //branderati.com/api/hub/limit=500&offset=500&__after_id=100004539155660",
+    "results": [
+        {
+            "type": "facebook",
+            "datetime": "2013-06-19-1300",
+            "content": "This is a facebook post!",
+            "interest": 3,
+            "people":[
+                "john.doe.51",
+                "jane.smith.12",
+                "joe.shmo.45"
+            ]
+        },
+        {
+            "type": "twitter",
+            "datetime": "2013-6-18-0200",
+            "content": "this is a tweet!",
+            "unique":{
+                "hashtags": [
+                    "#ahashtag",
+                    "#anotherone"
+                ]
+            }
+            }
+            "interest": 2,
+            "people": [
+                "@johndoe",
+                "@janedoe"
+            ]
+        },
+    ...
+    ]
+}
+                                        </pre>
+                                    </code>
+                                </div>
+                             <div class="span6">
+                            <p>Response breakdown</p>
+                        <table class="table table-striped table-bordered">
+                        <thead>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>total</td>
+                                <td>total number of posts returned</td>
+                            </tr>
+                            <tr>
+                                <td>influencer_id</td>
+                                <td>ID of the specific influencer</td>
+                            </tr>
+                            <tr>
+                                <td>next_page</td>
+                                <td>Call to next page of results. Will be <strong>false</strong> if there are no more pages left.</td>
+                            </tr>
+                            <tr>
+                                <td>results</td>
+                                <td>An array of objects representing the influencer's posts.</td>
+                            </tr>
+                            <tr>
+                                <td>results.type</td>
+                                <td>The social media network of the post.</td>
+                            </tr>
+                            <tr>
+                                <td>results.datetime</td>
+                                <td>Time of the posting in YYYY-MM-DD HH:MM</td>
+                            </tr>
+                            <tr>
+                                <td>results.content</td>
+                                <td>The text content, if any, of the post</td>
+                            </tr>
+                            <tr>
+                                <td>results.unique</td>
+                                <td>An array of any specific data unique to the post type, such as hash tags for a Twitter post.</td>
+                            </tr>
+                            <tr>
+                                <td>results.interest</td>
+                                <td>This represents the number of people who responded to the post in the way relevant to the social network in question. For example, for Facebook, this represents 'likes', for Twitter it is retweets.</td>
+                            </tr>
+                            <tr>
+                                <td>results.people</td>
+                                <td>The social media handles of the people who showed interest in the post.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        </div>
+                                </div>
+                                <h4>Status codes</h4>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <th>Code</th>
+                                        <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>200</td>
+                                            <td>Success</td>
+                                        </tr>
+                                        <tr>
+                                            <td>401</td>
+                                            <td>Authentication failed</td>
+                                        </tr>
+                                        <tr>
+                                            <td>422</td>
+                                            <td>Bad parameters</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+            <hr>
+
+            <footer>
+                <p>&copy; Company 2012</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.3/jquery.scrollTo.min.js"></script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <script src="js/main.js"></script>
+        <script>
+        $(function() {
+            $('body').bind('click', 'ul li a', function(event) {
+                $.scrollTo(event.target.hash, 350, {offset: -30});
+            });
+        });
+        </script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
+
