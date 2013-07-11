@@ -18,6 +18,7 @@
             }
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/prettify.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -114,9 +115,9 @@
                         <div class="span6">
                             <p>Sample response</p>
                             <code>
-                                <pre>
+                                <pre class="prettyprint linenums">
 {
-    "total": "500",
+    "total": 500,
     "network": "Branderati",
     "last_page": false,
     "next_page": "http://branderati.com/api/hub/limit=500&offset=500&__after_id=100004539155660",
@@ -158,7 +159,7 @@
     ]
 }
                             </pre>
-                            </code>
+                        </code>
                         </div>
                         <div class="span6">
                             <p>Response breakdown</p>
@@ -313,7 +314,7 @@
                         <div class="span6">
                             <p>Sample response</p>
                             <code>
-                                <pre>
+                                <pre class="prettyprint linenums">
 {
     "influencer_id": "43567542341235",
     "posts": 400,
@@ -384,7 +385,7 @@
                     <div class='row'>
                         <div class="span6">
                             <code>
-                                <pre>
+                                <pre class="prettyprint linenums">
 {
     "influencer_id": "43567542341235",
     "contact": {
@@ -493,14 +494,14 @@
                         <div class="span6">
                             <p>Sample response</p>
                             <code>
-                            <pre>
+                            <pre class="prettyprint linenums">
 {
     "total": 3,
     "next_page": false,
     "posts": [
-        123461242465,
-        187564323422,
-        853541341111
+        "123461242465",
+        "187564323422",
+        "853541341111"
     ]
 }
                             </pre>
@@ -598,7 +599,7 @@
                     <div class='row'>
                         <div class="span6">
                             <code>
-                                <pre>
+                                <pre class="prettyprint linenums">
 {
   "total": 3,
   "tags": [
@@ -617,10 +618,10 @@
                     <div class="row">
                         <div class="span6">
                             <code>
-                                <pre>
+                                <pre class="prettyprint linenums">
 {
   "total": 2,
-  "influencer_id": 546471341,
+  "influencer_id": "546471341",
   "tags": [
     "cool",
     "neato"
@@ -679,7 +680,7 @@
                                 <div class='row'>
                                     <div class="span6">
                                         <code>
-                                        <pre>
+                                        <pre class="prettyprint linenums">
 {
   "tags": [
     "cool",
@@ -892,9 +893,9 @@
                                     <div class="span6">
                                     <p>Sample response</p>
                                     <code>
-                                        <pre>
+                                        <pre class="prettyprint linenums">
 {
-    "total": "500",
+    "total": 500,
     "influencer_id": "213456432",
     "next_page": "http: //branderati.com/api/hub/limit=500&offset=500&__after_id=100004539155660",
     "results": [
@@ -1020,6 +1021,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.3/jquery.scrollTo.min.js"></script>
+        <script src="js/vendor/prettify.js"></script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
