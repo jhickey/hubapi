@@ -41,7 +41,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand ep_nav" href="#top"><img src="img/logo.png"/ width="20px"> HUB API</a>
+                        <a class="brand ep_nav" href="#top"><img class='ep_logo' src="img/logo.png"/ width="20px"> HUB API</a>
                         <div class="nav-collapse collapse">
                             <ul class="nav">
                                 <li><a href="#ep_feed" class="ep_nav">Feed</a></li>
@@ -193,6 +193,10 @@
                             <tr>
                                 <td>results.post_id</td>
                                 <td>ID of the post</td>
+                            </tr>
+                            <tr>
+                                <td>results.visible</td>
+                                <td>If the post shows up in the public feed.</td>
                             </tr>
                             <tr>
                                 <td>results.influencer_id</td>
@@ -611,7 +615,7 @@
                         </div>
                         <div class="row" id="ep_flag_post">
                             <div class="span12">
-                                <h3><button class="btn btn-success">POST</button> /hub/flag/({influencer_id}|{post_id})/</h3>
+                                <h3><button class="btn btn-primary">POST</button> /hub/flag/({influencer_id}|{post_id})/</h3>
                                 <hr>
                                 <p>Flag the given influencer or post. Returns 200 on success.</p>
                                  <table class="table table-striped table-bordered">
